@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:taiyou/constants/app_colors.dart';
-import 'package:taiyou/constants/app_text_style.dart';
-import 'package:taiyou/localization/get_text.dart';
+import 'package:iec_group/constants/app_colors.dart';
+import 'package:iec_group/constants/app_text_style.dart';
 
 import 'custom_progress_indicator.dart';
 
@@ -31,7 +30,7 @@ Widget showErrorMessage(String message, BuildContext context,
                         height: 10,
                       ),
                       Text(
-                        getTranslated(context, 'error'),
+                        "Error",
                         textAlign: TextAlign.center,
                         style: kProfileTitleValue,
                       ),
@@ -50,10 +49,10 @@ Widget showErrorMessage(String message, BuildContext context,
                   Builder(builder: (BuildContext outerContext) {
                     return TextButton(
                       child: Text(
-                        getTranslated(context, text),
+                        text,
                         style: kProfileTitle,
                       ),
-                      onPressed: onPressed,
+                      onPressed: onPressed(),
                     );
                   }),
                 ],
@@ -69,12 +68,13 @@ Widget showErrorMessage(String message, BuildContext context,
 }
 
 Widget showLoginAgainErrorMessage(
-    String message,
-    BuildContext context,
-    Function onPressed,
-    String text,
-    bool _isDialogShowing,
-    RegisterUnStore unRegisterStore) {
+  String message,
+  BuildContext context,
+  Function onPressed,
+  String text,
+  bool _isDialogShowing,
+  // RegisterUnStore unRegisterStore
+) {
   Future.delayed(Duration(milliseconds: 0), () {
     if (message != null && message.isNotEmpty) {
       if (_isDialogShowing == false) {
@@ -101,7 +101,7 @@ Widget showLoginAgainErrorMessage(
                             height: 10,
                           ),
                           Text(
-                            getTranslated(context, 'error'),
+                            "Error",
                             textAlign: TextAlign.center,
                             style: kProfileTitleValue,
                           ),
@@ -120,10 +120,10 @@ Widget showLoginAgainErrorMessage(
                       Builder(builder: (BuildContext outerContext) {
                         return TextButton(
                           child: Text(
-                            getTranslated(context, text),
+                            text,
                             style: kProfileTitle,
                           ),
-                          onPressed: onPressed,
+                          onPressed: onPressed(),
                         );
                       }),
                     ],
@@ -131,7 +131,8 @@ Widget showLoginAgainErrorMessage(
                   Observer(
                     builder: (context) {
                       return Visibility(
-                        visible: unRegisterStore.isLoading,
+                        // visible: unRegisterStore.isLoading,
+                        visible: false,
                         child: CustomProgressIndicatorWidget(),
                       );
                     },
@@ -148,4 +149,6 @@ Widget showLoginAgainErrorMessage(
   return SizedBox.shrink();
 }
 
-Future<bool> onWillPop() {}
+Future<bool> onWillPop() async{
+  return false;
+}

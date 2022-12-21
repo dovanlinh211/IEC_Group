@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:mobx/mobx.dart';
 import 'package:iec_group/constants/app_string.dart';
-import 'package:iec_group/dashboard_page/has_checked/store/has_checked_store.dart';
+// import 'package:iec_group/dashboard_page/has_checked/store/has_checked_store.dart';
 import 'package:iec_group/login_page/entity/login_body_model.dart';
 import 'package:iec_group/login_page/request/login_request.dart';
 
@@ -12,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 part 'login_store.g.dart';
 
 // This is the class used by rest of your codebase
+// ignore: library_private_types_in_public_api
 class LoginStore = _LoginStore with _$LoginStore;
 
 // The store-class
@@ -20,57 +21,55 @@ abstract class _LoginStore with Store {
 
 //auth variables
   @observable
-  String accesToken;
+  String? accesToken;
 
   @observable
-  String refreshToken;
+  String? refreshToken;
 
   @observable
-  LoginResponse val;
+  LoginResponse? val;
   @observable
-  String userName;
+  String? userName;
 
   @observable
-  String type;
+  String? type;
   @observable
-  String email;
+  String? email;
   @observable
-  bool isVerified;
+  bool? isVerified;
   @observable
-  int expiresIn;
+  int? expiresIn;
 
   @observable
   var userAuthData;
   @observable
   var autoLoginStatus;
 
-  HasCheckedStore hasChecked = HasCheckedStore();
+//  HasCheckedStore hasChecked = HasCheckedStore();
 
 //error and loading
   @observable
   bool isLoading = false;
 
-  GetProfileStore getProfileStore = GetProfileStore();
-
   @observable
-  bool hasError;
+  bool? hasError;
   @observable
-  ObservableFuture<LoginResponse> loginResponse;
+  ObservableFuture<LoginResponse>? loginResponse;
 
   Observable<bool> get isAuth {
     return Observable(accesToken != null);
   }
 
-  checkHasChecked() async {
-    await hasChecked.hasChecked(false);
-  }
+  // checkHasChecked() async {
+  //   await hasChecked.hasChecked(false);
+  // }
 
-  callGetProfile() async {
-    await getProfileStore.getProfile(false);
-  }
+  // callGetProfile() async {
+  //   await getProfileStore.getProfile(false);
+  // }
 
   @action
-  Future<LoginResponse> login(LoginModel data) async {
+  Future<ObservableFuture<LoginResponse>?> login(LoginModel data) async {
     final pref = await SharedPreferences.getInstance();
     isLoading = true;
     loginResponse =
@@ -81,18 +80,18 @@ abstract class _LoginStore with Store {
         hasError = true;
         return;
       } else {
-        isLoading = false;
+        isLoading = false; 
         hasError = false;
-        userName = data.username;
-        accesToken = value.response.accessToken;
-        refreshToken = value.response.refreshToken;
-        expiresIn = value.response.expiresIn;
+        userName = data.username!;
+        accesToken = value.response!.accessToken;
+        refreshToken = value.response!.refreshToken;
+        expiresIn = value.response!.expiresIn;
         print('login access token : $accesToken');
         userAuthData = json.encode({
           SharedPrefConstants.token: accesToken,
           SharedPrefConstants.refreshToken: refreshToken,
           SharedPrefConstants.expiresIn: expiresIn,
-          SharedPrefConstants.issuedTime: value.response.issuedTime,
+          SharedPrefConstants.issuedTime: value.response!.issuedTime,
         });
         pref.setString(SharedPrefConstants.userAuthData, userAuthData);
         return;
@@ -102,22 +101,22 @@ abstract class _LoginStore with Store {
     return loginResponse;
   }
 
-  autoLogin() async {
-    final pref = await SharedPreferences.getInstance();
-    var userData = pref.get(SharedPrefConstants.userAuthData);
+  // autoLogin() async {
+  //   final pref = await SharedPreferences.getInstance();
+  //   var userData = pref.get(SharedPrefConstants.userAuthData);
 
-    if (userData != null) {
-      var data = json.decode(userData);
+  //   if (userData != null) {
+  //     var data = jsonDecode(userData);
 
-      if (data[SharedPrefConstants.token] == null) autoLoginStatus = false;
+  //     if (data[SharedPrefConstants.token] == null) autoLoginStatus = false;
 
-      return data[SharedPrefConstants.token].toString().isEmpty
-          ? autoLoginStatus = false
-          : autoLoginStatus = true;
-    } else {
-      autoLoginStatus = false;
-    }
-  }
+  //     return data[SharedPrefConstants.token].toString().isEmpty
+  //         ? autoLoginStatus = false
+  //         : autoLoginStatus = true;
+  //   } else {
+  //     autoLoginStatus = false;
+  //   }
+  // }
 
   @action
   Future<void> logout() async {

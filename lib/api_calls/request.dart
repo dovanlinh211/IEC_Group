@@ -35,7 +35,7 @@ abstract class Request {
   static String urlEncodeForFormData(Map<String, String> map) {
     return map.keys
         .map((key) =>
-    '${Uri.encodeComponent(key)}=${Uri.encodeComponent(map[key])}')
+    '${Uri.encodeComponent(key)}=${Uri.encodeComponent(map[key]!)}')
         .join('&');
   }
 

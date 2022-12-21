@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:taiyou/constants/app_colors.dart';
-import 'package:taiyou/constants/app_numbers.dart';
-import 'package:taiyou/constants/app_text_style.dart';
-import 'package:taiyou/localization/get_text.dart';
-import 'package:taiyou/login_page/screen/login_page.dart';
+import 'package:iec_group/constants/app_colors.dart';
+import 'package:iec_group/constants/app_numbers.dart';
+import 'package:iec_group/constants/app_text_style.dart';
+import 'package:iec_group/login_page/screen/login_page.dart';
 
 Future ackAlertRefreshExpire(context, String a) async{
   final pref = await SharedPreferences.getInstance();
@@ -33,7 +32,7 @@ Future ackAlertRefreshExpire(context, String a) async{
                   height: 10,
                 ),
                 Text(
-                  getTranslated(context, 'error'),
+                  "Error",
                   textAlign: TextAlign.center,
                   style: kProfileTitleValue,
                 ),
@@ -46,7 +45,7 @@ Future ackAlertRefreshExpire(context, String a) async{
                   style: kAlertDesc,
                 ),
                 Text(
-                  getTranslated(context, 'pleaseLoginAgain'),
+                  "Please Login Again",
                   textAlign: TextAlign.center,
                   style: kAlertDesc,
                 ),
@@ -58,7 +57,7 @@ Future ackAlertRefreshExpire(context, String a) async{
                   children: [
                     TextButton(
                       child: Text(
-                        getTranslated(context, 'loginAgain'),
+                        "Login Again",
                         style: kProfileTitle,
                       ),
                       onPressed: () async {

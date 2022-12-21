@@ -5,10 +5,10 @@ part 'logout_model.g.dart';
 @JsonSerializable()
 class Logout {
   Logout({
-    this.success
+    required this.success
   });
   @JsonKey(name: 'success')
-  final String success;
+  late final String success;
 
   factory Logout.fromJson(Map<String, dynamic> json) => _$LogoutFromJson(json);
 

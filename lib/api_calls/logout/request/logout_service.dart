@@ -18,9 +18,10 @@ logoutService(
   if (store.hasError == false || statusCode == 401) {
     await preferences.clear();
     store.isLoading = false;
-    
+
     Navigator.pushReplacementNamed(context, 'login_page');
   } else {
-    ackAlert(context, store.val.errorMessage.toString());
+    print("error logout");
+    // ackAlert(context, store.val.errorMessage.toString());
   }
 }

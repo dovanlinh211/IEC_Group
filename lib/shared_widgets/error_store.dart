@@ -5,7 +5,7 @@ part 'error_store.g.dart';
 class ErrorStore = _ErrorStore with _$ErrorStore;
 
 abstract class _ErrorStore with Store {
-  List<ReactionDisposer> _disposers;
+  List<ReactionDisposer>? _disposers;
 
    _ErrorStore() {
     _disposers = [
@@ -28,7 +28,7 @@ abstract class _ErrorStore with Store {
 
   @action
   dispose() {
-    for (final d in _disposers) {
+    for (final d in _disposers!) {
       d();
     }
   }

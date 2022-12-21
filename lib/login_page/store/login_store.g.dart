@@ -13,13 +13,13 @@ mixin _$LoginStore on _LoginStore, Store {
       Atom(name: '_LoginStore.accesToken', context: context);
 
   @override
-  String get accesToken {
+  String? get accesToken {
     _$accesTokenAtom.reportRead();
     return super.accesToken;
   }
 
   @override
-  set accesToken(String value) {
+  set accesToken(String? value) {
     _$accesTokenAtom.reportWrite(value, super.accesToken, () {
       super.accesToken = value;
     });
@@ -29,13 +29,13 @@ mixin _$LoginStore on _LoginStore, Store {
       Atom(name: '_LoginStore.refreshToken', context: context);
 
   @override
-  String get refreshToken {
+  String? get refreshToken {
     _$refreshTokenAtom.reportRead();
     return super.refreshToken;
   }
 
   @override
-  set refreshToken(String value) {
+  set refreshToken(String? value) {
     _$refreshTokenAtom.reportWrite(value, super.refreshToken, () {
       super.refreshToken = value;
     });
@@ -44,13 +44,13 @@ mixin _$LoginStore on _LoginStore, Store {
   late final _$valAtom = Atom(name: '_LoginStore.val', context: context);
 
   @override
-  LoginResponse get val {
+  LoginResponse? get val {
     _$valAtom.reportRead();
     return super.val;
   }
 
   @override
-  set val(LoginResponse value) {
+  set val(LoginResponse? value) {
     _$valAtom.reportWrite(value, super.val, () {
       super.val = value;
     });
@@ -60,13 +60,13 @@ mixin _$LoginStore on _LoginStore, Store {
       Atom(name: '_LoginStore.userName', context: context);
 
   @override
-  String get userName {
+  String? get userName {
     _$userNameAtom.reportRead();
     return super.userName;
   }
 
   @override
-  set userName(String value) {
+  set userName(String? value) {
     _$userNameAtom.reportWrite(value, super.userName, () {
       super.userName = value;
     });
@@ -75,13 +75,13 @@ mixin _$LoginStore on _LoginStore, Store {
   late final _$typeAtom = Atom(name: '_LoginStore.type', context: context);
 
   @override
-  String get type {
+  String? get type {
     _$typeAtom.reportRead();
     return super.type;
   }
 
   @override
-  set type(String value) {
+  set type(String? value) {
     _$typeAtom.reportWrite(value, super.type, () {
       super.type = value;
     });
@@ -90,13 +90,13 @@ mixin _$LoginStore on _LoginStore, Store {
   late final _$emailAtom = Atom(name: '_LoginStore.email', context: context);
 
   @override
-  String get email {
+  String? get email {
     _$emailAtom.reportRead();
     return super.email;
   }
 
   @override
-  set email(String value) {
+  set email(String? value) {
     _$emailAtom.reportWrite(value, super.email, () {
       super.email = value;
     });
@@ -106,13 +106,13 @@ mixin _$LoginStore on _LoginStore, Store {
       Atom(name: '_LoginStore.isVerified', context: context);
 
   @override
-  bool get isVerified {
+  bool? get isVerified {
     _$isVerifiedAtom.reportRead();
     return super.isVerified;
   }
 
   @override
-  set isVerified(bool value) {
+  set isVerified(bool? value) {
     _$isVerifiedAtom.reportWrite(value, super.isVerified, () {
       super.isVerified = value;
     });
@@ -122,13 +122,13 @@ mixin _$LoginStore on _LoginStore, Store {
       Atom(name: '_LoginStore.expiresIn', context: context);
 
   @override
-  int get expiresIn {
+  int? get expiresIn {
     _$expiresInAtom.reportRead();
     return super.expiresIn;
   }
 
   @override
-  set expiresIn(int value) {
+  set expiresIn(int? value) {
     _$expiresInAtom.reportWrite(value, super.expiresIn, () {
       super.expiresIn = value;
     });
@@ -186,13 +186,13 @@ mixin _$LoginStore on _LoginStore, Store {
       Atom(name: '_LoginStore.hasError', context: context);
 
   @override
-  bool get hasError {
+  bool? get hasError {
     _$hasErrorAtom.reportRead();
     return super.hasError;
   }
 
   @override
-  set hasError(bool value) {
+  set hasError(bool? value) {
     _$hasErrorAtom.reportWrite(value, super.hasError, () {
       super.hasError = value;
     });
@@ -202,13 +202,13 @@ mixin _$LoginStore on _LoginStore, Store {
       Atom(name: '_LoginStore.loginResponse', context: context);
 
   @override
-  ObservableFuture<LoginResponse> get loginResponse {
+  ObservableFuture<LoginResponse>? get loginResponse {
     _$loginResponseAtom.reportRead();
     return super.loginResponse;
   }
 
   @override
-  set loginResponse(ObservableFuture<LoginResponse> value) {
+  set loginResponse(ObservableFuture<LoginResponse>? value) {
     _$loginResponseAtom.reportWrite(value, super.loginResponse, () {
       super.loginResponse = value;
     });
@@ -218,7 +218,7 @@ mixin _$LoginStore on _LoginStore, Store {
       AsyncAction('_LoginStore.login', context: context);
 
   @override
-  Future<LoginResponse> login(LoginModel data) {
+  Future<ObservableFuture<LoginResponse>?> login(LoginModel data) {
     return _$loginAsyncAction.run(() => super.login(data));
   }
 

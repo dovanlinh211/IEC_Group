@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:taiyou/constants/app_colors.dart';
-import 'package:taiyou/constants/app_numbers.dart';
-import 'package:taiyou/constants/app_text_style.dart';
-import 'package:taiyou/localization/get_text.dart';
+import 'package:iec_group/constants/app_colors.dart';
+import 'package:iec_group/constants/app_numbers.dart';
+import 'package:iec_group/constants/app_text_style.dart';
 
 Future noInternetDialog(context) {
   return showDialog(
@@ -31,7 +30,7 @@ Future noInternetDialog(context) {
                   height: 10,
                 ),
                 Text(
-                  getTranslated(context, 'error'),
+                  "Error",
                   textAlign: TextAlign.center,
                   style: kProfileTitleValue,
                 ),
@@ -39,7 +38,7 @@ Future noInternetDialog(context) {
                   height: 5,
                 ),
                 Text(
-                  getTranslated(context, 'noInternetError'),
+                  "No Internet Connection",
                   textAlign: TextAlign.center,
                   style: kAlertDesc,
                 ),
@@ -50,7 +49,7 @@ Future noInternetDialog(context) {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(
-                      child: Text(getTranslated(context, 'ok'),
+                      child: Text("OK",
                           style: kProfileTitle),
                       onPressed: () {
                         Navigator.of(context).pop();

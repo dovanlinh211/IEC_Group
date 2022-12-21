@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'package:iec_group/api_calls/error_container/error_container.dart';
 import 'package:iec_group/constants/app_string.dart';
+import 'package:iec_group/shared_widgets/error_store.dart';
 import 'package:mobx/mobx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:iec_group/login_page/entity/login_body_model.dart';
 import 'package:iec_group/login_page/request/login_repository.dart';
-import 'package:iec_group/constants/app_strings.dart';
+import 'package:iec_group/constants/app_string.dart';
 import 'package:iec_group/login_page/request/login_request.dart';
 
 // Include generated file
@@ -16,15 +18,17 @@ class RefreshTokenStore = _RefreshTokenStore with _$RefreshTokenStore;
 // The store-class
 abstract class _RefreshTokenStore with Store {
   final _loginnRepository = LoginRepository();
-
+  
+  // static ObservableFuture<List<LoginResponse>> emptyResponse =
+  //     ObservableFuture.value([]);
   // ErrorContainer errorStore = ErrorStore();
 
   @observable
-  String refreshToken;
+  late String refreshToken;
   @observable
-  String accessToken;
+  late String accessToken;
   @observable
-  int expiresIn;
+  late int expiresIn;
 
   @observable
   var userAuthData;
@@ -36,14 +40,14 @@ abstract class _RefreshTokenStore with Store {
   bool hasError = false;
 
   @observable
-  ObservableFuture<LoginResponse> loginResponse;
+  late ObservableFuture<LoginResponse> loginResponse;
   @observable
-  LoginResponse loginResponseData;
+  late LoginResponse loginResponseData;
 
   @action
   Future<bool> checkRefreshToken() async {
     final pref = await SharedPreferences.getInstance();
-    var userData = pref.get(SharedPrefConstants.userAuthData);
+    dynamic userData = pref.get(SharedPrefConstants.userAuthData);
     var data = json.decode(userData);
     refreshToken = data[SharedPrefConstants.refreshToken];
     var issuedTime = data[SharedPrefConstants.issuedTime];
@@ -62,33 +66,38 @@ abstract class _RefreshTokenStore with Store {
     var isLoginExpired = await checkRefreshToken();
     final pref = await SharedPreferences.getInstance();
     var data = LoginModel(
-        clientId: ReleaseMode.debug?AppConstantsDebug.clientId:AppConstantsUAT.clientId,
-        clientSecret: ReleaseMode.debug?AppConstantsDebug
-            .clientSecret:AppConstantsUAT.clientSecret,
+        clientId: ReleaseMode.debug
+            ? AppConstantsDebug.clientId
+            : AppConstantsUAT.clientId,
+        clientSecret: ReleaseMode.debug
+            ? AppConstantsDebug.clientSecret
+            : AppConstantsUAT.clientSecret,
         grantType: AppConstants.grantTypeAccessToken,
         refreshToken: refreshToken);
-    if (isLoginExpired && refreshToken.isNotEmpty) {
-      loginResponse =
-          await ObservableFuture(_loginnRepository.refreshToken(data))
-              .then((value) {
-        if (value.hasError) {
-          loginResponseData = value;
-        } else {
-          accessToken = value.response.accessToken;
-          refreshToken = value.response.refreshToken;
-          expiresIn = value.response.expiresIn;
-          userAuthData = json.encode({
-            SharedPrefConstants.token: accessToken,
-            SharedPrefConstants.refreshToken: refreshToken,
-            SharedPrefConstants.expiresIn: expiresIn,
-            SharedPrefConstants.issuedTime: value.response.issuedTime,
-          });
-          pref.setString(SharedPrefConstants.userAuthData, userAuthData);
-        }
-      });
-      return accessToken;
-    } else {
-      return accessToken;
-    }
+    // if (isLoginExpired && refreshToken.isNotEmpty) {
+    //   loginResponse =
+    //       await ObservableFuture(_loginnRepository.refreshToken(data))
+    //           .then((value) {
+    //     if (value.hasError) {
+    //       loginResponseData = value;
+    //     } else {
+    //       accessToken = value.response!.accessToken;
+    //       refreshToken = value.response!.refreshToken;
+    //       expiresIn = value.response!.expiresIn;
+    //       userAuthData = json.encode({
+    //         SharedPrefConstants.token: accessToken,
+    //         SharedPrefConstants.refreshToken: refreshToken,
+    //         SharedPrefConstants.expiresIn: expiresIn,
+    //         SharedPrefConstants.issuedTime: value.response!.issuedTime,
+    //       });
+    //       pref.setString(SharedPrefConstants.userAuthData, userAuthData);
+    //     }
+
+    //   });
+    //   return accessToken;
+    // } else {
+    //   return accessToken;
+    // }
+    return accessToken;
   }
 }

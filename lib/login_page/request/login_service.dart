@@ -5,18 +5,15 @@ import 'package:iec_group/shared_widgets/username_wrong_alert.dart';
 import '../entity/login_body_model.dart';
 
 loginService(context, LoginModel loginData, LoginStore store) async {
+  await store.login(loginData);
 
-    await store.login(loginData);
+  if (store.hasError == false) {
+    print(" login succes");
 
-
-    if (store.hasError == false) {
-
-      Navigator.pushReplacementNamed(context, 'main_scaffold');
-
-
-    } else {
-      print('${store.val.errorMessage} hello');
-      ackAlert(context, store.val.errorMessage.toString());
-    }
-
+    Navigator.pushReplacementNamed(context, 'home_page');
+  } else {
+    print("login failed");
+    print('${store.val?.errorMessage} Error login message');
+    // ackAlert(context, store.val.errorMessage.toString());
+  }
 }

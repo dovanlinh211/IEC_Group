@@ -7,21 +7,21 @@ import 'package:iec_group/constants/current_locale.dart';
 
 class RequestClient {
   factory RequestClient() {
-    _instance ??= RequestClient._internal();
-    return _instance;
+    _instance= RequestClient._internal();
+    return _instance!;
   }
 
   RequestClient._internal() {
     _client = http.Client();
   }
-
+  static RequestClient? _instance;
+  http.Client? _client;
   static const String userAgent = 'User-Agent';
   static const String contentType = 'Content-Type';
   static const String accept = 'Accept';
   static const String locale = 'locale';
 
-  static RequestClient _instance;
-  http.Client _client;
+
 
   Future<Map<String, String>> _createCommonHeader() async {
     final common = <String, String>{};
@@ -44,7 +44,7 @@ class RequestClient {
     debugPrint('-------------------------------');
     headers.addAll(await _createCommonHeader());
 
-    final response = await _client.get(Uri.parse(url), headers: headers);
+    final response = await _client!.get(Uri.parse(url), headers: headers);
     return response;
   }
 
@@ -52,7 +52,7 @@ class RequestClient {
       String url, Map<String, String> headers, String body) async {
     headers.addAll(await _createCommonHeader());
 
-    final response = await _client.post(Uri.parse(url),
+    final response = await _client!.post(Uri.parse(url),
         headers: headers, body: body, encoding: Encoding.getByName('utf-8'));
 
     return response;
@@ -62,7 +62,7 @@ class RequestClient {
       String url, Map<String, String> headers, String body) async {
     headers..addAll(await _createCommonHeader())..addAll(await _createHeader());
 
-    final response = await _client.post(Uri.parse(url),
+    final response = await _client!.post(Uri.parse(url),
         headers: headers, body: body, encoding: Encoding.getByName('utf-8'));
     return response;
   }
@@ -71,19 +71,19 @@ class RequestClient {
       String url, Map<String, String> headers, String body) async {
     headers.addAll(await _createCommonHeader());
 
-    final response = await _client.put(Uri.parse(url),
+    final response = await _client!.put(Uri.parse(url),
         headers: headers, body: body, encoding: Encoding.getByName('utf-8'));
     return response;
   }
 
   Future<http.StreamedResponse> upload(http.MultipartRequest request) async {
-    final response = await _client.send(request);
+    final response = await _client!.send(request);
     return response;
   }
 
   Future<http.Response> delete(String url, Map<String, String> headers) async {
     headers.addAll(await _createCommonHeader());
-    final response = await _client.delete(Uri.parse(url), headers: headers);
+    final response = await _client!.delete(Uri.parse(url), headers: headers);
     return response;
   }
 }

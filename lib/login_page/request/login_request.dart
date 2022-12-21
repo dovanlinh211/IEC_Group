@@ -18,11 +18,11 @@ class LoginRequest implements Request {
   static const _keyClientSecret = 'clientSecret';
   static const _keyGrantType = 'grantType';
 
-  String _username;
-  String _password;
-  String _clientID;
-  String _clientSecret;
-  String _grantType;
+  String? _username;
+  String? _password;
+  String? _clientID;
+  String? _clientSecret;
+  String? _grantType;
 
   LoginRequest(LoginModel model) {
     _username = model.username;
@@ -74,10 +74,12 @@ class LoginRequest implements Request {
         final dynamic object = json.decode(response.body);
         final code = LoginContainer.fromJson(object as Map<String, dynamic>);
         code.userData.issuedTime = DateTime.now().millisecondsSinceEpoch;
+        print(code);
         result
           ..hasError = false
           ..errorMessage = ''
           ..response = code.userData;
+        //  return result;
       } else if (response.statusCode == 401) {
         final dynamic object = json.decode(response.body);
         final errorMessage =
@@ -85,7 +87,8 @@ class LoginRequest implements Request {
 
         result
           ..hasError = true
-          ..errorMessage = errorMessage.error.detail;
+          ..errorMessage = errorMessage.error.detail!;
+        // return result;
       } else {
         final dynamic object = json.decode(response.body);
         final errorMessage =
@@ -93,14 +96,14 @@ class LoginRequest implements Request {
 
         result
           ..hasError = true
-          ..errorMessage = errorMessage.errorList[0].detail;
+          ..errorMessage = errorMessage.errorList[0].detail!;
+        // return result;
       }
     }).catchError((Object error) {
       result
         ..hasError = true
         ..errorMessage = Response.getErrorMessage(error);
     });
-
     return result;
   }
 }
@@ -110,5 +113,5 @@ class LoginResponse extends Response {
 
   bool hasError;
   String errorMessage;
-  Login response;
+  Login? response;
 }

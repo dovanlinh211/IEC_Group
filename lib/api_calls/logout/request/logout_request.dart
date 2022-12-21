@@ -10,7 +10,7 @@ class LogoutRequest implements Request {
   static const _version = 'v1';
   static const _endPoint = 'logout';
 
-  String _accessToken;
+  String? _accessToken;
 
   LogoutRequest(String accessToken) {
     _accessToken = accessToken;
@@ -63,7 +63,7 @@ class LogoutRequest implements Request {
 
         result
           ..hasError = true
-          ..errorMessage = errorMessage.errorList[0].title;
+          ..errorMessage = errorMessage.errorList[0].title!;
       }
     }).catchError((Object error) {
       result

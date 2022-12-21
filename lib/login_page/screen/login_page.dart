@@ -3,10 +3,13 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:iec_group/constants/app_colors.dart';
+import 'package:iec_group/constants/app_numbers.dart';
 import 'package:iec_group/constants/app_string.dart';
+import 'package:iec_group/constants/app_text_style.dart';
 import 'package:iec_group/constants/custom_sizeconfig.dart';
 import 'package:iec_group/constants/size_config.dart';
 import 'package:iec_group/login_page/entity/login_body_model.dart';
+import 'package:iec_group/login_page/request/login_service.dart';
 import 'package:iec_group/login_page/store/login_store.dart';
 import 'package:iec_group/shared_widgets/custom_progress_indicator.dart';
 import 'package:iec_group/shared_widgets/mainbutton.dart';
@@ -28,17 +31,16 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   LoginStore loginStore = LoginStore();
-  BottomNavStore store = BottomNavStore();
+  // BottomNavStore store = BottomNavStore();
   String appName = "";
 
   @override
   void initState() {
-
     getAppName().then((value) => setState(() {
           appName = value;
         }));
-    store = Provider.of<BottomNavStore>(context, listen: false);
-    store.currentIndex = 0;
+    // store = Provider.of<BottomNavStore>(context, listen: false);
+    // store.currentIndex = 0;
     loginStore = Provider.of<LoginStore>(context, listen: false);
     clearSharedPref();
 
@@ -86,51 +88,57 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    padding: EdgeInsets.only(top: 30),
-                    child: SizedBox(
-                      width: SizeConfig.widthMultiplier * 90,
-                      child: Image.asset(
-                        taiyouName,
-                      ),
-                    ),
+                  // Container(
+                  //   padding: EdgeInsets.only(top: 30),
+                  //   child: SizedBox(
+                  //     width: SizeConfig.widthMultiplier * 90,
+                  //     child: Image.asset(
+                  //       taiyouName,
+                  //     ),
+                  //   ),
+                  // ),
+                  SizedBox(
+                    // height: SizeConfig.heightMultiplier! * 5,
+                    height: 30,
                   ),
                   SizedBox(
-                    height: SizeConfig.heightMultiplier * 5,
+                    // height: SizeConfig.heightMultiplier! * 18,
+                    height: 30,
+                    // child: Image.asset(
+                    //   taiyouAbstract,
+                    // ),
                   ),
                   SizedBox(
-                    height: SizeConfig.heightMultiplier * 18,
-                    child: Image.asset(
-                      taiyouAbstract,
-                    ),
-                  ),
-                  SizedBox(
-                    height: SizeConfig.heightMultiplier * 3,
+                    // height: SizeConfig.heightMultiplier! * 3,
+                    height: 5,
                   ),
                   Container(
                     width: double.infinity,
                     padding: EdgeInsets.only(right: 50, left: 50),
                     child: Text(
-                      getTranslated(context, 'intro'),
-                      style: kIntroTextStyle,
+                      "Intro",
+                      // style: kIntroTextStyle,
                       textAlign: TextAlign.center,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   SizedBox(
-                    height: SizeConfig.heightMultiplier * 3,
+                    height: 5,
+                    // height: SizeConfig.heightMultiplier! * 3,
                   ),
                   LoginForm(),
                   SizedBox(
-                    height: SizeConfig.heightMultiplier * 6,
+                    height: 6,
+                    // height: SizeConfig.heightMultiplier! * 6,
                   ),
                   Text(
                     appName,
-                    style: kSubTextStyle,
+                    // style: kSubTextStyle,
                   ),
                   SizedBox(
-                    height: SizeConfig.heightMultiplier * 3,
+                    height: 5,
+                    // height: SizeConfig.heightMultiplier! * 3,
                   ),
                 ],
               ),
@@ -198,23 +206,17 @@ class _LoginFormState extends State<LoginForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            inputField(
-                Icon(Icons.person),
-                getTranslated(context, 'username'),
-                _textController,
-                _nameObsceure,
-                context,
-                TextInputAction.next,
-                "name"),
+            inputField(Icon(Icons.person), "User Name", _textController,
+                _nameObsceure, context, TextInputAction.next, "name"),
             Visibility(
                 visible: _hasNameError,
                 child: Container(
                   margin: EdgeInsets.only(left: 20, right: 20),
                   child: Text(
-                    getTranslated(context, 'nameCannotBeEmpty'),
-                    style: TextStyle(
-                        color: Colors.red,
-                        fontSize: CustomSizeConfig.safeBlockHorizontal * 3),
+                    "Name cannot Empty",
+                    style: TextStyle(color: Colors.red, fontSize: 15
+                        // fontSize: CustomSizeConfig.safeBlockHorizontal! * 3
+                        ),
                   ),
                 )),
             SizedBox(
@@ -224,7 +226,7 @@ class _LoginFormState extends State<LoginForm> {
               padding: EdgeInsets.only(bottom: bottom),
               child: inputField(
                   Icon(Icons.vpn_key),
-                  getTranslated(context, 'password'),
+                  "Password",
                   _passwordController,
                   _passwordObsceure,
                   context,
@@ -236,19 +238,24 @@ class _LoginFormState extends State<LoginForm> {
                 child: Container(
                   margin: EdgeInsets.only(left: 20, right: 20),
                   child: Text(
-                    getTranslated(context, 'passwordCannotBeEmpty'),
-                    style: TextStyle(
-                        color: Colors.red,
-                        fontSize: CustomSizeConfig.safeBlockHorizontal * 3),
+                    "password cannot empty",
+                    style: TextStyle(color: Colors.red, fontSize: 20
+                        // fontSize: CustomSizeConfig.safeBlockHorizontal! * 3
+                        ),
                   ),
                 )),
             SizedBox(
               height: 20,
             ),
-            filledButton(getTranslated(context, 'login'), kFilledButtonText,
-                AppColors.primaryColor, AppColors.white, () async {
+            filledButton(
+                "Login",
+                // kFilledButtonText,
+                AppColors.primaryColor,
+                AppColors.white, () async {
               checkLogin();
-            }, 20, SizeConfig.heightMultiplier * 10),
+            }, 40, 15
+                //  SizeConfig.heightMultiplier! * 10
+                ),
           ],
         ),
       ),
@@ -286,6 +293,8 @@ class _LoginFormState extends State<LoginForm> {
             username: _textController.text,
             password: _passwordController.text,
             grantType: loginData.grantType);
+        print(
+            "loginData in LoginModel is: ${loginData.clientId},${loginData.clientSecret},${loginData.password}, ${loginData.username}");
         loginService(context, loginData, loginStore);
       }
     });
@@ -303,9 +312,9 @@ class _LoginFormState extends State<LoginForm> {
         textInputAction: action,
         controller: controller,
         obscureText: obsecure,
-        style: kFormHint,
+        // style: kFormHint,
         decoration: InputDecoration(
-            hintStyle: kHintStyle,
+            // hintStyle: kHintStyle,
             fillColor: AppColors.textFieldBackground,
             hintText: hint,
             enabledBorder: OutlineInputBorder(

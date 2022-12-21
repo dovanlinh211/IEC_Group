@@ -6,8 +6,8 @@ import 'package:iec_group/constants/app_string.dart';
 class AccessToken {
   Future<String> getUserName() async {
     final pref = await SharedPreferences.getInstance();
-    var userData = pref.get(SharedPrefConstants.userName);
-    var data = json.decode(userData);
+    dynamic userData = pref.get(SharedPrefConstants.userName);
+    var data = json.decode(userData) ;
 
     return data[SharedPrefConstants.userName];
   }

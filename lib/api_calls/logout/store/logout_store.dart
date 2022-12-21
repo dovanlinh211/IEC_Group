@@ -18,7 +18,7 @@ abstract class _LogoutStore with Store {
   RefreshTokenStore store = RefreshTokenStore();
 
   @observable
-  LogoutResponse val;
+  late LogoutResponse val;
 
   @observable
   bool hasError = false;
@@ -27,26 +27,26 @@ abstract class _LogoutStore with Store {
   bool isLoading = false;
 
   @observable
-  ObservableFuture<LogoutResponse> logoutResponse;
+  late ObservableFuture<LogoutResponse> logoutResponse;
 
   @action
   Future<LogoutResponse> logout() async {
     isLoading = true;
     final pref = await SharedPreferences.getInstance();
     var accessToken = await store.getAccessToken();
-    logoutResponse =
-        await ObservableFuture(_logoutRepository.login(accessToken))
-            .then((value) {
-      if (value.hasError) {
-        isLoading = false;
-        val = value;
-        hasError = true;
-      } else {
-        isLoading = false;
-        hasError = false;
-        pref.clear();
-      }
-    });
+    // logoutResponse =
+    //     await ObservableFuture(_logoutRepository.login(accessToken))
+    //         .then((value) {
+    //   if (value.hasError) {
+    //     isLoading = false;
+    //     val = value;
+    //     hasError = true;
+    //   } else {
+    //     isLoading = false;
+    //     hasError = false;
+    //     pref.clear();
+    //   }
+    // });
 
     return logoutResponse;
   }

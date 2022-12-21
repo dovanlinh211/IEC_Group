@@ -11,10 +11,11 @@ class AppConstantsDebug {
 
 class AppConstantsUAT {
   // uat registerLink
-  static const String registerLink = 'uat';
   static const String clientId = '3';
-  static const String url = 'https://birumane-app.com/api/';
-  static const String clientSecret = 'B3iaFpsOk4qlg1CwLslkUFfvVt7HlWKw0UDA1HDd';
+  static const String url = 'https://uat-taiyou.ekbana.net/api/';
+  static const String clientSecret = 'M4z6de60iPSBoz0Q8fYRVtCnigQFLVLI2MWBi2K2';
+  static const String registerLink = 'uat';
+
 }
 
 class AppConstants {

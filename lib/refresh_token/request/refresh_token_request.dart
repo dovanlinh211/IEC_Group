@@ -17,10 +17,10 @@ class RefreshTokenRequest implements Request {
   static const _keyClientSecret = 'clientSecret';
   static const _keyGrantType = 'grantType';
 
-  String _refreshToken;
-  String _clientID;
-  String _clientSecret;
-  String _grantType;
+  String? _refreshToken;
+  String? _clientID;
+  String? _clientSecret;
+  String? _grantType;
 
   RefreshTokenRequest(LoginModel model) {
     _refreshToken = model.refreshToken;
@@ -78,7 +78,7 @@ class RefreshTokenRequest implements Request {
 
         result
           ..hasError = true
-          ..errorMessage = errorMessage.error.detail;
+          ..errorMessage = errorMessage.error.detail!;
       }else if (response.statusCode == 500) {
         final dynamic object = json.decode(response.body);
         final errorMessage =
@@ -95,7 +95,7 @@ class RefreshTokenRequest implements Request {
 
         result
           ..hasError = true
-          ..errorMessage = errorMessage.errorList[0].detail;
+          ..errorMessage = errorMessage.errorList[0].detail!;
       }
     }).catchError((Object error) {
       result

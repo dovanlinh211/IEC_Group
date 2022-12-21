@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:iec_group/constants/app_string.dart';
+import 'package:iec_group/constants/custom_sizeconfig.dart';
 import 'package:iec_group/constants/size_config.dart';
 import 'package:iec_group/home_page/home_page.dart';
 import 'package:iec_group/login_page/screen/login_page.dart';
@@ -25,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen>
   // HasCheckedStore hasCheckedStore = HasCheckedStore();
   bool checkLogin = false;
   bool apiChecked = true;
-  bool autoLogin;
+  late bool autoLogin;
   var userData;
 
   //store
@@ -46,6 +47,7 @@ class _SplashScreenState extends State<SplashScreen>
   void didChangeDependencies() async {
     // hasCheckedStore = Provider.of<HasCheckedStore>(context, listen: false);
     await getAccessToken();
+    await _navigate();
     super.didChangeDependencies();
   }
 
@@ -93,10 +95,10 @@ class _SplashScreenState extends State<SplashScreen>
               child: Align(
             alignment: Alignment.center,
             child: SizedBox(
-              width: SizeConfig.widthMultiplier! * 90,
-              child: Image.asset(
-                taiyouName,
-              ),
+              width: 300
+              // child: Image.asset(
+              //   taiyouName,
+              // ),
             ),
           )),
         ],

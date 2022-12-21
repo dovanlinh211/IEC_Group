@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:taiyou/constants/app_colors.dart';
-import 'package:taiyou/constants/app_numbers.dart';
-import 'package:taiyou/constants/app_text_style.dart';
-import 'package:taiyou/constants/size_config.dart';
+import 'package:iec_group/constants/app_colors.dart';
+import 'package:iec_group/constants/app_numbers.dart';
+import 'package:iec_group/constants/app_text_style.dart';
+import 'package:iec_group/constants/size_config.dart';
 
 Widget secondaryAppbar(String text) {
-  double width = SizeConfig.widthMultiplier * 100;
+  double width = SizeConfig.widthMultiplier! * 100;
   return Container(
       width: width,
       height: AppNumbers.secondaryAppBarHeight,

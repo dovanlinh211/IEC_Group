@@ -5,8 +5,14 @@ import 'package:iec_group/constants/app_numbers.dart';
 import 'package:iec_group/constants/image_path.dart';
 import 'package:iec_group/constants/size_config.dart';
 
-Widget filledButton(String text, TextStyle style, Color fillColor,
-    Color textColor, void function(), double padding, double height,
+Widget filledButton(
+    String text,
+// TextStyle style,
+    Color fillColor,
+    Color textColor,
+    void function(),
+    double padding,
+    double height,
     {String type = "normal"}) {
   return Container(
     margin: EdgeInsets.only(left: padding / 2, right: padding / 2),
@@ -16,7 +22,8 @@ Widget filledButton(String text, TextStyle style, Color fillColor,
     ),
     child: TextButton(
       child: Container(
-        height: SizeConfig.heightMultiplier * 8,
+        height: 20,
+        // height: SizeConfig.heightMultiplier! * 8,
         width: double.infinity,
         decoration: BoxDecoration(
           color: fillColor,
@@ -24,11 +31,12 @@ Widget filledButton(String text, TextStyle style, Color fillColor,
         ),
         child: Center(
           child: Container(
-            width: SizeConfig.widthMultiplier! * 80,
+            width: 70,
+            // width: SizeConfig.widthMultiplier! * 80,
             child: type == "normal"
                 ? Text(
                     text,
-                    style: style,
+                    // style: style,
                     textAlign: TextAlign.center,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -45,7 +53,7 @@ Widget filledButton(String text, TextStyle style, Color fillColor,
                       ),
                       Text(
                         text,
-                        style: style,
+                        // style: style,
                         textAlign: TextAlign.center,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -82,7 +90,7 @@ Widget filledButtonWithIcon(
       icon: icon,
       onPressed: function,
       label: Container(
-        height: SizeConfig.heightMultiplier * 8,
+        height: SizeConfig.heightMultiplier! * 8,
         width: double.infinity,
         decoration: BoxDecoration(
           color: fillColor,
@@ -90,7 +98,7 @@ Widget filledButtonWithIcon(
         ),
         child: Center(
           child: Container(
-            width: SizeConfig.widthMultiplier * 80,
+            width: SizeConfig.widthMultiplier! * 80,
             child: Text(
               text,
               style: style,
@@ -110,7 +118,7 @@ Widget filledButtonModalSheet(String text, TextStyle style, Color fillColor,
   bool _buttonPressed = false;
   return TextButton(
     child: Container(
-      height: SizeConfig.heightMultiplier * 8,
+      height: SizeConfig.heightMultiplier! * 8,
       width: double.infinity,
       decoration: BoxDecoration(
         color: fillColor,
